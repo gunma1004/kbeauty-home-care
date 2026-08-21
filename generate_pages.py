@@ -9,7 +9,7 @@ with open("template.html", "r", encoding="utf-8") as f:
     template_content = f.read()
 
 # ==============================================================================
-# 1. 80가지 이상 다이나믹 SEO 문구 엔진 (출장마사지 포함, 브랜드 맨 뒤 배치)
+# 1. 80가지 이상 다이나믹 SEO 문구 엔진
 # ==============================================================================
 TITLE_PREFIXES = [
     "{loc} 24시 프리미엄 출장마사지",
@@ -187,6 +187,9 @@ for sido_key, sido_val in regions_data.items():
     page = page.replace("{{SUB_NAV_TITLE}}", f"📍 {sido_val['name']} 주요 행정구역")
     page = page.replace("{{region_slug}}", sido_key)
     page = page.replace("{{neighborhood_links}}", "\n".join(gu_links))
+    # 광역 지도 설정 (줌 10)
+    page = page.replace("{{MAP_QUERY}}", f"{sido_val['name']}")
+    page = page.replace("{{MAP_ZOOM}}", "10")
     
     with open(f"{sido_dir}/index.html", "w", encoding="utf-8") as f:
         f.write(page)
@@ -213,6 +216,9 @@ for sido_key, sido_val in regions_data.items():
         page = page.replace("{{SUB_NAV_TITLE}}", f"📍 {gu_info['name']} 세부 상권·동네")
         page = page.replace("{{region_slug}}", f"{sido_key}/{gu_key}")
         page = page.replace("{{neighborhood_links}}", "\n".join(dong_links))
+        # 구/시 단위 지도 설정 (줌 12)
+        page = page.replace("{{MAP_QUERY}}", f"{sido_val['name']} {gu_info['name']}")
+        page = page.replace("{{MAP_ZOOM}}", "12")
         
         with open(f"{gu_dir}/index.html", "w", encoding="utf-8") as f:
             f.write(page)
@@ -240,9 +246,12 @@ for sido_key, sido_val in regions_data.items():
             page = page.replace("{{SUB_NAV_TITLE}}", f"📍 {gu_info['name']} 인근 동네 둘러보기")
             page = page.replace("{{region_slug}}", f"{sido_key}/{gu_key}/{dong}")
             page = page.replace("{{neighborhood_links}}", "\n".join(neighbor_links))
+            # 세부 동 단위 지도 설정 (줌 14로 정밀 확대)
+            page = page.replace("{{MAP_QUERY}}", f"{sido_val['name']} {gu_info['name']} {dong}")
+            page = page.replace("{{MAP_ZOOM}}", "14")
             
             with open(f"{target_dir}/index.html", "w", encoding="utf-8") as f:
                 f.write(page)
             count += 1
 
-print(f">> 완료! 서울, 경기, 인천, 천안 전체(상권/핫플 포함) 총 {count}개의 완벽한 지역 페이지가 제작되었습니다.")
+print(f">> 완료! 모든 하위 지역 페이지에 맞춤 구글 지도가 포함된 총 {count}개의 페이지가 제작되었습니다.")
