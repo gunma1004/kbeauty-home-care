@@ -2,13 +2,9 @@ import os
 import datetime
 import urllib.parse
 
-# 1. 확정된 실제 도메인 주소 (끝에 슬래시 제외)
 BASE_URL = "https://seoul-beautytherapy.shop"
-
-# 2. sitemap.xml 파일 저장 경로
 SITEMAP_FILE = "sitemap.xml"
 
-# generate_pages.py와 100% 일치하는 정밀 지역 데이터
 regions_data = {
     "seoul": {
         "gus": {
@@ -93,6 +89,15 @@ regions_data = {
             "dongnam": ["신부동", "천안역", "천안터미널", "야우리", "원성동", "구성동", "청수동", "청수행정타운", "청당동", "삼룡동", "유량동", "봉명동", "다가동", "구룡동", "신방동", "신방통정지구", "안서동", "상명대", "단국대", "호서대", "백석대", "목천읍", "풍세면", "병천면", "아우내"],
             "seobuk": ["두정동", "두정역", "두정먹자골목", "성정동", "백석동", "불당동", "신불당", "천안아산역", "쌍용동", "나사렛대", "차암동", "성성동", "성성호수공원", "부대동", "신당동", "업성동", "와촌동", "직산읍", "성환읍", "성거읍", "입장면", "부성동"]
         }
+    },
+    "asan": {
+        "gus": {
+            "city": [
+                "배방읍", "장재리", "공수리", "북수리", "탕정면", "탕정신도시", "매곡리", "명암리", "지중해마을",
+                "온천동", "온양온천역", "신용화동", "용화동", "모종동", "풍기동", "권곡동", "실옥동", "방축동",
+                "음봉면", "둔포면", "아산테크노밸리", "신창면", "순천향대", "인주면", "선장면", "도고면", "영인면", "염치읍", "송악면"
+            ]
+        }
     }
 }
 
@@ -104,19 +109,18 @@ def generate_sitemap():
     urls.append((f"{BASE_URL}/", today, "daily", "1.0"))
     
     for sido_key, sido_val in regions_data.items():
-        # 2. 광역 페이지 (예: /seoul/)
+        # 2. 광역 페이지 (예: /asan/)
         urls.append((f"{BASE_URL}/{sido_key}/", today, "weekly", "0.9"))
         
         for gu_key, dongs in sido_val["gus"].items():
-            # 3. 구/시 단위 페이지 (예: /seoul/gangnam/)
+            # 3. 구/시 단위 페이지 (예: /asan/city/)
             urls.append((f"{BASE_URL}/{sido_key}/{gu_key}/", today, "weekly", "0.8"))
             
             for dong in dongs:
-                # 4. 세부 동 단위 페이지 (한글 URL 인코딩 처리 적용)
+                # 4. 세부 동 단위 페이지 (인코딩 적용)
                 encoded_dong = urllib.parse.quote(dong)
                 urls.append((f"{BASE_URL}/{sido_key}/{gu_key}/{encoded_dong}/", today, "monthly", "0.6"))
 
-    # XML 스트링 빌드
     xml_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
@@ -126,7 +130,7 @@ def generate_sitemap():
         xml_lines.append('  <url>')
         xml_lines.append(f'    <loc>{loc}</loc>')
         xml_lines.append(f'    <lastmod>{date}</lastmod>')
-        xml_lines.append(f'    <changefreq>{freq}</freq>')
+        xml_lines.append(f'    <changefreq>{freq}</changefreq>')
         xml_lines.append(f'    <priority>{pri}</priority>')
         xml_lines.append('  </url>')
         

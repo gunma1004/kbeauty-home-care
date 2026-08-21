@@ -9,7 +9,7 @@ with open("template.html", "r", encoding="utf-8") as f:
     template_content = f.read()
 
 # ==============================================================================
-# 1. 80가지 이상 다이나믹 SEO 문구 엔진
+# 1. 80가지 이상 다이나믹 SEO 문구 엔진 (출장마사지 포함)
 # ==============================================================================
 TITLE_PREFIXES = [
     "{loc} 24시 프리미엄 출장마사지",
@@ -58,7 +58,7 @@ def generate_random_seo(loc_name):
     return {"title": title, "desc": desc}
 
 # ==============================================================================
-# 2. 지역 데이터 (서울 25구, 경기 31시군, 인천 10구군, 충남 천안시)
+# 2. 지역 데이터 (서울, 경기, 인천, 천안, 아산 추가)
 # ==============================================================================
 regions_data = {
     "seoul": {
@@ -112,7 +112,7 @@ regions_data = {
             "osan": {"name": "오산시", "dongs": ["오산동", "원동", "궐동", "청학동", "갈곶동", "세교동", "세교지구", "수청동", "금암동", "은계동", "가장동", "양산동", "외삼미동", "내삼미동", "부산동", "누읍동", "오산대역"]},
             "namyangju": {"name": "남양주시", "dongs": ["다산동", "다산신도시", "별내동", "별내신도시", "진접읍", "화도읍", "와부읍", "호평동", "평내동", "오남읍", "퇴계원읍", "진건읍", "수동면", "조안면", "마석"]},
             "paju": {"name": "파주시", "dongs": ["운정동", "운정신도시", "야당동", "야당역", "와동동", "목동동", "동패동", "다율동", "당하동", "교하동", "금촌동", "아동동", "문산읍", "파주읍", "조리읍", "법원읍", "탄현면", "헤이리"]},
-            "uijeongbu": {"name": "의정부시", "dongs": ["의정부동", "호원동", "장암동", "신곡동", "용현동", "민락동", "민락2지구", "낙양동", "고산동", "고산지구", "산곡동", "금오동", "가능동", "녹양동", "의정부역"]},
+            "uijeongbu": {"name": "의정부시", "dongs": ["의정부동", "호원동", "장암동", "신곡동", "용현동", "민락동", "민락2지구", "낙양동", "고산동", "고산지구", "산곡동", "금오동", "가능동", "녹양동", "자금동", "의정부역"]},
             "icheon": {"name": "이천시", "dongs": ["창전동", "중리동", "관고동", "안흥동", "갈산동", "증포동", "송정동", "부발읍", "하이닉스", "장호원읍", "대월면", "마장면", "백사면", "신둔면"]},
             "anseong": {"name": "안성시", "dongs": ["공도읍", "대덕면", "보개면", "금광면", "서운면", "미양면", "양성면", "원곡면", "고삼면", "일죽면", "죽산면", "삼죽면", "안성동", "아양동", "아양지구", "옥산동", "석정동", "당왕동"]},
             "guri": {"name": "구리시", "dongs": ["갈매동", "갈매신도시", "인창동", "교문동", "수택동", "아천동", "토평동", "사노동", "구리역"]},
@@ -162,12 +162,25 @@ regions_data = {
                 ]
             }
         }
+    },
+    "asan": {
+        "name": "아산",
+        "gus": {
+            "city": {
+                "name": "아산시",
+                "dongs": [
+                    "배방읍", "장재리", "공수리", "북수리", "탕정면", "탕정신도시", "매곡리", "명암리", "지중해마을",
+                    "온천동", "온양온천역", "신용화동", "용화동", "모종동", "풍기동", "권곡동", "실옥동", "방축동",
+                    "음봉면", "둔포면", "아산테크노밸리", "신창면", "순천향대", "인주면", "선장면", "도고면", "영인면", "염치읍", "송악면"
+                ]
+            }
+        }
     }
 }
 
 count = 0
 
-# 1) 광역 페이지 (/seoul/, /gyeonggi/, /incheon/, /cheonan/)
+# 1) 광역 페이지 (/seoul/, /gyeonggi/, /incheon/, /cheonan/, /asan/)
 for sido_key, sido_val in regions_data.items():
     sido_dir = sido_key
     os.makedirs(sido_dir, exist_ok=True)
@@ -187,15 +200,14 @@ for sido_key, sido_val in regions_data.items():
     page = page.replace("{{SUB_NAV_TITLE}}", f"📍 {sido_val['name']} 주요 행정구역")
     page = page.replace("{{region_slug}}", sido_key)
     page = page.replace("{{neighborhood_links}}", "\n".join(gu_links))
-    # 광역 지도 설정 (줌 10)
     page = page.replace("{{MAP_QUERY}}", f"{sido_val['name']}")
-    page = page.replace("{{MAP_ZOOM}}", "10")
+    page = page.replace("{{MAP_ZOOM}}", "11")
     
     with open(f"{sido_dir}/index.html", "w", encoding="utf-8") as f:
         f.write(page)
     count += 1
 
-# 2) 구/시 단위 페이지 (/seoul/gangnam/, /cheonan/seobuk/ 등)
+# 2) 구/시 단위 페이지 (/seoul/gangnam/, /asan/city/ 등)
 for sido_key, sido_val in regions_data.items():
     for gu_key, gu_info in sido_val["gus"].items():
         gu_dir = f"{sido_key}/{gu_key}"
@@ -216,7 +228,6 @@ for sido_key, sido_val in regions_data.items():
         page = page.replace("{{SUB_NAV_TITLE}}", f"📍 {gu_info['name']} 세부 상권·동네")
         page = page.replace("{{region_slug}}", f"{sido_key}/{gu_key}")
         page = page.replace("{{neighborhood_links}}", "\n".join(dong_links))
-        # 구/시 단위 지도 설정 (줌 12)
         page = page.replace("{{MAP_QUERY}}", f"{sido_val['name']} {gu_info['name']}")
         page = page.replace("{{MAP_ZOOM}}", "12")
         
@@ -224,7 +235,7 @@ for sido_key, sido_val in regions_data.items():
             f.write(page)
         count += 1
 
-# 3) 읍/면/동 세부 페이지 (/seoul/gangnam/역삼동/, /cheonan/seobuk/신불당/ 등)
+# 3) 읍/면/동 세부 페이지 (/asan/city/배방읍/, /asan/city/탕정신도시/ 등)
 for sido_key, sido_val in regions_data.items():
     for gu_key, gu_info in sido_val["gus"].items():
         neighbor_links = []
@@ -246,7 +257,6 @@ for sido_key, sido_val in regions_data.items():
             page = page.replace("{{SUB_NAV_TITLE}}", f"📍 {gu_info['name']} 인근 동네 둘러보기")
             page = page.replace("{{region_slug}}", f"{sido_key}/{gu_key}/{dong}")
             page = page.replace("{{neighborhood_links}}", "\n".join(neighbor_links))
-            # 세부 동 단위 지도 설정 (줌 14로 정밀 확대)
             page = page.replace("{{MAP_QUERY}}", f"{sido_val['name']} {gu_info['name']} {dong}")
             page = page.replace("{{MAP_ZOOM}}", "14")
             
@@ -254,4 +264,4 @@ for sido_key, sido_val in regions_data.items():
                 f.write(page)
             count += 1
 
-print(f">> 완료! 모든 하위 지역 페이지에 맞춤 구글 지도가 포함된 총 {count}개의 페이지가 제작되었습니다.")
+print(f">> 완료! 서울, 경기, 인천, 천안, 아산 전체 총 {count}개의 완벽한 지역 페이지가 제작되었습니다.")

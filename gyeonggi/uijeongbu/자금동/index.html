@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <title>한국미인테라피 경기 자금동 홈타이 스웨디시 | 24시 후불제 출장마사지</title>
-  <meta name="description" content="한국미인테라피 경기 의정부시 자금동 공식 홈케어. 건식·센슈얼·아로디시 100% 후불제 서비스. 자금동 전지역 통화 후 25분 내 신속 도착 상시 대기.">
-  <link rel="canonical" href="https://ssoulhomethai365.netlify.app/gyeonggi/uijeongbu/자금동/">
+  <title>의정부시 자금동 힐링 테라피 & 출장마사지 전신 힐링 릴렉싱 | 서울 한국미인테라피</title>
+  <meta name="description" content="의정부시 자금동 전지역 24시간 100% 후불제 출장마사지 전문점. 건식·아로디시·센슈얼 스웨디시 코스 완비. 통화 후 25~35분 내 신속 방문합니다 | 서울 한국미인테라피">
+  <link rel="canonical" href="https://seoul-beautytherapy.shop/gyeonggi/uijeongbu/자금동/">
   <meta name="theme-color" content="#0d0814">
   
   <style>
@@ -51,7 +51,7 @@
       display: flex; flex-direction: column; font-size: 1.25rem; font-weight: 900;
       background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-    .brand small { font-size: 0.65rem; color: var(--text-sub); -webkit-text-fill-color: var(--text-sub); letter-spacing: 0.15em; font-weight: 600; }
+    .brand small { font-size: 0.65rem; color: var(--text-sub); -webkit-text-fill-color: var(--text-sub); letter-spacing: 0.15em; font-weight: 600; text-transform: lowercase; }
     .site-nav { display: flex; align-items: center; gap: 24px; }
     .site-nav a { font-size: 0.95rem; color: var(--text-sub); transition: color 0.2s; }
     .site-nav a:hover { color: #fff; }
@@ -122,6 +122,11 @@
     .course-card--highlight { border-color: rgba(255, 209, 102, 0.45); background: linear-gradient(160deg, rgba(46, 20, 69, 0.85), rgba(20, 10, 35, 0.95)); }
     .course-card--highlight::before { content: "POPULAR"; position: absolute; top: 16px; right: -30px; background: var(--pink-neon); color: #fff; font-size: 0.65rem; font-weight: 900; padding: 4px 30px; transform: rotate(45deg); }
 
+    /* 구글 지도 스타일 */
+    .map-container { max-width: var(--max-w); margin: 0 auto; padding: 40px 20px; }
+    .map-frame { width: 100%; height: 360px; border-radius: 20px; overflow: hidden; border: 1px solid var(--border-glow); box-shadow: 0 15px 40px rgba(0,0,0,0.6); }
+    .map-frame iframe { width: 100%; height: 100%; border: 0; filter: invert(90%) hue-rotate(220deg); }
+
     .neighbor-section { background: rgba(13, 8, 20, 0.5); }
     .neighbor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
     .neighbor-card {
@@ -152,11 +157,12 @@
 
   <header class="site-header">
     <a class="brand" href="/">
-      <span>한국미인테라피</span>
-      <small>KOREA BEAUTY THERAPY</small>
+      <span>서울 한국미인테라피</span>
+      <small>seoul korea beauty therapy</small>
     </a>
     <nav class="site-nav">
       <a href="#course">코스·요금</a>
+      <a href="#map">위치안내</a>
       <a href="#neighborhoods">주변지역</a>
       <a class="nav-call" href="tel:0507-1280-3201">전화 상담</a>
     </nav>
@@ -171,14 +177,14 @@
       <div class="hero-copy">
         <div class="hero-kicker">✨ 의정부시 자금동 프리미엄 안심 후불 홈케어</div>
         <h1><span>의정부시 자금동</span><br><span><em>30분 홈타이 스웨디시</em></span></h1>
-        <p class="hero-lead">지친 하루 끝에 복잡한 외출 필요 없이, 의정부시 자금동 내 머무시는 안방, 호텔, 모텔 객실 어디든 한국미인테라피가 직접 찾아갑니다. 선입금 없는 100% 후불제로 안심 예약하세요.</p>
+        <p class="hero-lead">지친 하루 끝에 복잡한 외출 필요 없이, 의정부시 자금동 내 머무시는 안방, 호텔, 모텔 객실 어디든 서울 한국미인테라피가 직접 찾아갑니다. 선입금 없는 100% 후불제로 안심 예약하세요.</p>
         <div class="hero-actions">
           <a class="button button--signal" href="tel:0507-1280-3201">지정 관리사 부르기 <i>↗</i></a>
           <a class="button button--line" href="#course">코스 안내</a>
         </div>
       </div>
       <div class="hero-media">
-        <img src="/assets/images/main-banner.jpg" alt="의정부시 자금동 한국미인테라피">
+        <img src="/assets/images/main-banner.jpg" alt="의정부시 자금동 서울 한국미인테라피">
       </div>
     </section>
 
@@ -192,6 +198,7 @@
       </div>
     </section>
 
+    <!-- 코스 요금표 -->
     <section class="course-section" id="course">
       <div class="section-shell">
         <div class="section-intro">
@@ -275,9 +282,21 @@
       </div>
     </section>
 
+    <!-- 구/동 맞춤 구글 지도 섹션 -->
+    <section class="map-container" id="map">
+      <div class="section-intro" style="margin-bottom: 24px;">
+        <span>LOCATION MAP</span>
+        <h2>의정부시 자금동 방문 서비스 위치</h2>
+      </div>
+      <div class="map-frame">
+        <iframe src="https://maps.google.com/maps?q=경기 의정부시 자금동&t=&z=14&ie=UTF8&iwloc=&output=embed" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <!-- 하부 네비게이션 허브 -->
     <section class="section-shell neighbor-section" id="neighborhoods">
       <div class="section-intro">
-        <span>{{SUB_NAV_TITLE}}</span>
+        <span>📍 의정부시 인근 동네 둘러보기</span>
         <h2>행정 구역 및 하위 행정동 안내</h2>
         <p>원하시는 세부 지역 버튼을 선택하시면 해당 지역 전용 상세 페이지로 바로 이동합니다.</p>
       </div>
@@ -288,19 +307,22 @@
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/신곡동/">신곡동</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/용현동/">용현동</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/민락동/">민락동</a>
+<a class="neighbor-card" href="/gyeonggi/uijeongbu/민락2지구/">민락2지구</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/낙양동/">낙양동</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/고산동/">고산동</a>
+<a class="neighbor-card" href="/gyeonggi/uijeongbu/고산지구/">고산지구</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/산곡동/">산곡동</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/금오동/">금오동</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/가능동/">가능동</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/녹양동/">녹양동</a>
 <a class="neighbor-card" href="/gyeonggi/uijeongbu/자금동/">자금동</a>
+<a class="neighbor-card" href="/gyeonggi/uijeongbu/의정부역/">의정부역</a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© 한국미인테라피 | 수도권 및 천안 24시간 연중무휴 안심 케어: 0507-1280-3201</p>
+    <p>© 서울 한국미인테라피 (seoul-beautytherapy.shop) | 수도권 및 천안 24시간 연중무휴 안심 케어: 0507-1280-3201</p>
   </footer>
 
   <aside class="contact-dock">
