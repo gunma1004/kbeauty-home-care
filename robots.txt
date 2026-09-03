@@ -7,4 +7,4 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-Sitemap: https://seoul-beautytherapy.shop/sitemap.xml
+Sitemap: https://kbeauty-home-care.netlify.app/sitemap.xml

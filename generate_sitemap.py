@@ -2,9 +2,10 @@ import os
 import datetime
 import urllib.parse
 
-BASE_URL = "https://seoul-beautytherapy.shop"
+BASE_URL = "https://kbeauty-home-care.netlify.app"
 SITEMAP_FILE = "sitemap.xml"
 
+# 서울, 경기, 인천, 천안, 아산, 대전, 청주 전체 지역 데이터
 regions_data = {
     "seoul": {
         "gus": {
@@ -98,6 +99,23 @@ regions_data = {
                 "음봉면", "둔포면", "아산테크노밸리", "신창면", "순천향대", "인주면", "선장면", "도고면", "영인면", "염치읍", "송악면"
             ]
         }
+    },
+    "daejeon": {
+        "gus": {
+            "seogu": ["둔산동", "월평동", "갈마동", "탄방동", "괴정동", "가장동", "내동", "변동", "용문동", "탄방역", "정부청사역"],
+            "yuseong": ["봉명동", "궁동", "어은동", "죽동", "전민동", "반석동", "지족동", "노은동", "관평동", "도룡동", "KAIST", "충남대"],
+            "junggu": ["대흥동", "은행동", "선화동", "중촌동", "용두동", "태평동", "유천동", "오류동", "문화동", "안영동"],
+            "donggu": ["가양동", "용전동", "중리동", "성남동", "삼성동", "효동", "용운동", "대동", "판암동", "대전역"],
+            "daedeok": ["법동", "송촌동", "오정동", "대화동", "비래동", "신탄진동", "석봉동", "덕암동", "목상동"]
+        }
+    },
+    "cheongju": {
+        "gus": {
+            "heungdeok": ["가경동", "복대동", "봉명동", "강서동", "하복대", "지동동", "송절동", "비하동", "오송읍", "오송역", "옥산면"],
+            "sangdang": ["북문로", "서문로", "영운동", "금천동", "용암동", "용정동", "탑동", "낭성면", "미원면", "가덕면", "남일면", "문의면"],
+            "seowon": ["사직동", "사창동", "분평동", "수곡동", "모충동", "성화동", "개신동", "산남동", "남이면", "현도면"],
+            "cheongwon": ["우암동", "내덕동", "오근장동", "율량동", "사천동", "오창읍", "오창과학단지", "북이면", "내수읍"]
+        }
     }
 }
 
@@ -109,11 +127,11 @@ def generate_sitemap():
     urls.append((f"{BASE_URL}/", today, "daily", "1.0"))
     
     for sido_key, sido_val in regions_data.items():
-        # 2. 광역 페이지 (예: /asan/)
+        # 2. 광역 페이지 (예: /seoul/)
         urls.append((f"{BASE_URL}/{sido_key}/", today, "weekly", "0.9"))
         
         for gu_key, dongs in sido_val["gus"].items():
-            # 3. 구/시 단위 페이지 (예: /asan/city/)
+            # 3. 구/시 단위 페이지 (예: /seoul/gangnam/)
             urls.append((f"{BASE_URL}/{sido_key}/{gu_key}/", today, "weekly", "0.8"))
             
             for dong in dongs:
